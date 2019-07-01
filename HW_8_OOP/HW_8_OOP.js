@@ -1,41 +1,51 @@
 class FastFood{
-
 	#price = 0;
 	#kcal = 0;
 
 	constructor(size){
-		try{
+		if(this.constructor.name == size.class)
+		{
 			this.size = size;
 			this.#price += this.size.price;
 			this.#kcal += this.size.calories;
-		}catch{console.error('Invalid size'); console.info('Enter valid sauce')}
+		}
+		else{
+			throw new Error('I don\'t know this size');
+		}
 	}
 
 	static get SAUCE_MAYO(){
-		return {price: 5, calories: 30}
+		return {class: this.name, price: 5, calories: 30}
 	}
 	
 	static get SAUCE_MUSTARD(){
-		return {price: 5, calories: 35}
+		return {class: this.name, price: 5, calories: 35}
 	}
 
 	addSauce(sauce){
-		try{
+		if(this.constructor.name == sauce.class){
 			this.#kcal +=sauce.calories;
 			this.#price += sauce.price;
-		}catch{console.error('Enter valid sauce')}
+		}
+		else{
+			throw new Error('I don\'t know this sauce');
+		}
 		
+
 	}
+
 	getPrice(){
 		return this.#price;
 	}
 
 	removeSauce(sauce){
-		try{
+		if(this.constructor.name == sauce.class){
 			this.#price -= sauce.price;
 			this.#kcal -= sauce.calories;
-		}catch{console.error('Enter valid sauce')}
-
+		}
+		else{
+			throw new Error('I don\'t know this sauce');
+		}
 	}
 
 	getCalories(){
@@ -48,21 +58,21 @@ class FastFood{
 
 class Hamburger extends FastFood{
 	static get SIZE_SMALL(){
-		return {price: 30, calories: 200};
+		return {class: this.name, price: 30, calories: 200};
 	}
 	static get SIZE_BIG(){
-		return {price: 50, calories: 320};
+		return {class: this.name, price: 50, calories: 320};
 	}
 }
 
 class Cheeseburger extends FastFood{
 	static get SIZE_SMALL(){
-		return {price: 40, calories: 250};
+		return {class: this.name, price: 40, calories: 250};
 	}
 	static get SIZE_BIG(){
-		return {price: 70, calories: 400};
+		return {class: this.name, price: 70, calories: 400};
 	}
 	static get SAUCE_TARTAR(){
-		return {price: 7, calories: 37};
+		return {class: this.name, price: 7, calories: 37};
 	}
 }
